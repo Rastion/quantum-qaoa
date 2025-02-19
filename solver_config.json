@@ -8,34 +8,43 @@
         "verbose": false
     },
     "optimizer_type": "QAOA",
-    "description": "Mix of a simulated annealing algorithm with a custom reward and update system.",
+    "description": "QAOA for QUBO problems. Internally requires the QUBO matrix of a qubot problem.",
     "compatible_problems": [
       "QUBO"
     ],
     
     "parameters": {
-      "time_limit": {
+      "num_layers": {
         "type": "int",
-        "description": "Maximum optimization time in seconds."
+        "description": "Number of layers for the QAOA quantum circuit."
       },
-      "temperature": {
+      "max_iters": {
         "type": "int",
-        "description": "Starting temperature for the annealing process."
+        "description": "Maximum number of iterations for optimization process."
+      },
+      "learning_rate": {
+        "type": "float",
+        "description": "Learning rate for the quantum circuit optimization."
+      },
+      "n_shots": {
+        "type": "int",
+        "description": "Number of shots for the quantum circuit."
       },
       "verbose": {
         "type": "bool",
-        "description": "True to see optimization process in terminal output."
+        "description": "Set to true if you want to see the optimization process in terminal output."
       }
     },
     "requirements": [
-      "torch",
+      "pennylane",
       "qubots",
       "numpy"
     ],
     "keywords": [
       "QUBO",
-      "heuristic",
-      "general QUBO solver"
+      "quantum optimization",
+      "general QUBO solver",
+      "pennylane"
     ]
 }
 
