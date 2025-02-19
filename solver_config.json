@@ -6,5 +6,36 @@
         "learning_rate": 0.1,
         "n_shots": 10000,
         "verbose": false
-    }
+    },
+    "optimizer_type": "QAOA",
+    "description": "Mix of a simulated annealing algorithm with a custom reward and update system.",
+    "compatible_problems": [
+      "QUBO"
+    ],
+    
+    "parameters": {
+      "time_limit": {
+        "type": "int",
+        "description": "Maximum optimization time in seconds."
+      },
+      "temperature": {
+        "type": "int",
+        "description": "Starting temperature for the annealing process."
+      },
+      "verbose": {
+        "type": "bool",
+        "description": "True to see optimization process in terminal output."
+      }
+    },
+    "requirements": [
+      "torch",
+      "qubots",
+      "numpy"
+    ],
+    "keywords": [
+      "QUBO",
+      "heuristic",
+      "general QUBO solver"
+    ]
 }
+
