@@ -113,7 +113,7 @@ class QAOAOptimizer(BaseOptimizer):
         for sample in samples:
             # Convert bitstring (0,1) to spins (+1,-1): here assume 0 -> +1, 1 -> -1.
             spins = [1 if bit == 0 else -1 for bit in sample]
-            E = energy_Ising(spins, h, J, offset)
+            E = problem.evaluate_solution(spins)
             if E < best_energy:
                 best_energy = E
                 best_sample = sample
