@@ -7,10 +7,12 @@
         "n_shots": 10000,
         "verbose": false
     },
-    "optimizer_type": "QAOA",
-    "description": "QAOA for QUBO problems. Internally requires the QUBO matrix of a qubot problem.",
+    "creator": "Rastion",
+    "type": "optimizer",
+    "optimizer_name": "QAOA optimizer with Ising parameters",
+    "description": "Quantum Approximate Optimization Algorithm using pennylane.",
     "compatible_problems": [
-      "QUBO"
+      "Ising"
     ],
     
     "parameters": {
@@ -20,19 +22,19 @@
       },
       "max_iters": {
         "type": "int",
-        "description": "Maximum number of iterations for optimization process."
+        "description": "maximum number of iterations for the Adam optimizer."
       },
       "learning_rate": {
-        "type": "float",
-        "description": "Learning rate for the quantum circuit optimization."
+        "type": "bool",
+        "description": "Learning rate for pennylane Adam optimizer."
       },
       "n_shots": {
         "type": "int",
-        "description": "Number of shots for the quantum circuit."
+        "description": "Number of shots for the quantum simulator/circuit."
       },
       "verbose": {
         "type": "bool",
-        "description": "Set to true if you want to see the optimization process in terminal output."
+        "description": "True to see optimization process in terminal output."
       }
     },
     "requirements": [
@@ -41,10 +43,9 @@
       "numpy"
     ],
     "keywords": [
-      "QUBO",
-      "quantum optimization",
-      "general QUBO solver",
-      "pennylane"
+      "Ising",
+      "heuristic",
+      "quantum optimizers"
     ]
 }
 

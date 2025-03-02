@@ -4,40 +4,6 @@ from qubots.base_optimizer import BaseOptimizer
 import pennylane as qml
 import numpy as np
 from pennylane import numpy as pnp
-from collections import defaultdict
-
-def from_Q_to_Ising(Q, offset=0):
-    n_qubits = len(Q)
-    h = defaultdict(float)
-    J = defaultdict(float)
-    edges = []
-    for i in range(n_qubits):
-        h[(i,)] -= Q[i, i] / 2.0
-        offset += Q[i, i] / 2.0
-        for j in range(i + 1, n_qubits):
-            if Q[i, j] != 0:
-                edges.append((i, j))
-            J[(i, j)] += Q[i, j] / 4.0
-            h[(i,)] -= Q[i, j] / 4.0
-            h[(j,)] -= Q[i, j] / 4.0
-            offset += Q[i, j] / 4.0
-    return h, J, offset, edges
-
-def energy_Ising(z, h, J, offset):
-    """
-    Calculate the energy of an Ising model given a spin configuration z.
-    
-    The convention used is that if z is provided as a string,
-    '0' is mapped to +1 and '1' to -1.
-    """
-    if isinstance(z, str):
-        z = [1 if ch == '0' else -1 for ch in z]
-    energy = offset
-    for key, value in h.items():
-        energy += value * z[key[0]]
-    for (i, j), value in J.items():
-        energy += value * z[i] * z[j]
-    return energy
 
 class QAOAOptimizer(BaseOptimizer):
     """
@@ -59,12 +25,10 @@ class QAOAOptimizer(BaseOptimizer):
         self.verbose = verbose
 
     def optimize(self, problem, initial_solution=None, **kwargs):
-        # Retrieve QUBO matrix Q.
-        Q, qubo_const = problem.get_qubo()
-        offset = 0
-        # Convert Q to Ising parameters.
-        h, J, offset, edges = from_Q_to_Ising(Q, qubo_const)
-        n = len(Q)
+        
+        # Set up Ising parameters from the problem.
+        h, J, offset, edges = problem.h, problem.J, problem.offset, problem.edges
+        n = len(h) # number of qubits
 
         p = self.num_layers  # number of layers
 
